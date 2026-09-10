@@ -1,10 +1,10 @@
-// Digitale kæledyr
-
-float vaegt = 5;
-int kalorier = 0;
+Pet pet;
 
 void setup() {
   size(800, 600);
+
+  // Opretter kæledyret
+  pet = new Pet("Bobo", 5);
 }
 
 void draw() {
@@ -12,22 +12,17 @@ void draw() {
 
   // Titel
   textSize(30);
+  fill(0);
   text("Mit digitale kæledyr", 250, 50);
 
-  // Kæledyr
-  fill(150, 100, 200);
-  ellipse(400, 300, vaegt * 20, vaegt * 20);
+  // Viser kæledyret
+  pet.display();
 
-  // Øjne
-  fill(0);
-  ellipse(380, 290, 10, 10);
-  ellipse(420, 290, 10, 10);
-
-  // Status
+  // Viser status
   textSize(20);
-  fill(0);
-  text("Vægt: " + vaegt + " kg", 50, 100);
-  text("Kalorier: " + kalorier, 50, 130);
+  text("Navn: " + pet.navn, 50, 100);
+  text("Vægt: " + pet.vaegt + " kg", 50, 130);
+  text("Kalorier: " + pet.kalorier, 50, 160);
 
   // Knapper
   fill(100, 200, 100);
@@ -45,16 +40,13 @@ void mousePressed() {
   if (mouseX > 50 && mouseX < 200 &&
       mouseY > 450 && mouseY < 500) {
       
-    vaegt = vaegt + 1;
-    kalorier = kalorier + 500;
+    pet.givMad();
   }
 
   // Træn
   if (mouseX > 230 && mouseX < 380 &&
       mouseY > 450 && mouseY < 500) {
       
-    if (vaegt > 1) {
-      vaegt = vaegt - 1;
-    }
+    pet.traen();
   }
 }
