@@ -1,28 +1,39 @@
 class Pet {
 
+  // Under denne vægt rører maven ikke længere hovedet.
+  final float MIN_VAEGT = 4;
+
   // Attributter
   String navn;
-  float vaegt;
+  private float vaegt;
   int kalorier;
 
   // Konstruktør
   Pet(String navn, float vaegt) {
     this.navn = navn;
-    this.vaegt = vaegt;
+    this.vaegt = max(vaegt, MIN_VAEGT);
     kalorier = 0;
+  }
+
+  // Vægten kan kun ændres gennem denne metode.
+  void aendreVaegt(float aendring) {
+    vaegt += aendring;
+    vaegt = constrain(vaegt, 4, 40);
+  }
+
+  float getVaegt() {
+    return vaegt;
   }
 
   // Metode til at give mad
   void givMad() {
-    vaegt = vaegt + 1;
+    aendreVaegt(1);
     kalorier = kalorier + 500;
   }
 
   // Metode til at træne
   void traen() {
-    if (vaegt > 1) {
-      vaegt = vaegt - 1;
-    }
+    aendreVaegt(-1);
   }
 
   void display() {
