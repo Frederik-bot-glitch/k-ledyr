@@ -21,7 +21,7 @@ void draw() {
   // Viser status
   textSize(20);
   text("Navn: " + pet.navn, 50, 100);
-  text("Vægt: " + pet.vaegt + " kg", 50, 130);
+  text("Vægt: " + pet.getVaegt() + " kg", 50, 130);
   text("Kalorier: " + pet.kalorier, 50, 160);
 
   // Knapper
