@@ -30,7 +30,7 @@ class Pet {
     aendreVaegt(1);
     kalorier = kalorier + 500;
   }
- 
+
 
   // Metode til at træne
   void traen() {
