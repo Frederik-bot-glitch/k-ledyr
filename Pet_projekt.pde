@@ -24,7 +24,25 @@ void setup() {
 }
 
 void draw() {
-  background(220);
+  // Simpelt 3D-rum i baggrunden.
+  pushStyle();
+  background(210, 220, 230);
+  noStroke();
+
+  // Bagvæg
+  fill(235, 225, 205);
+  rect(130, 70, 540, 330);
+
+  // Venstre og højre væg
+  fill(205, 190, 170);
+  quad(0, 0, 130, 70, 130, 400, 0, 600);
+  fill(190, 175, 155);
+  quad(670, 70, 800, 0, 800, 600, 670, 400);
+
+  // Gulv
+  fill(170, 130, 90);
+  quad(130, 400, 670, 400, 800, 600, 0, 600);
+  popStyle();
 
   // Titel
   textSize(30);
