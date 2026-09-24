@@ -24,7 +24,6 @@ void setup() {
 }
 
 void draw() {
-  // Simpelt 3D-rum i baggrunden.
   pushStyle();
   background(210, 220, 230);
   noStroke();
