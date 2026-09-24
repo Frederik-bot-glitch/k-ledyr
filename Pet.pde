@@ -1,34 +1,36 @@
 class Pet {
 
-  // Under denne vægt rører maven ikke længere hovedet.
-  final float MIN_VAEGT = 4;
-
   // Attributter
   String navn;
-  private float vaegt;
-  int kalorier;
+  private SundhedsStatus sundhed;
 
   // Konstruktør
   Pet(String navn, float vaegt) {
     this.navn = navn;
-    this.vaegt = max(vaegt, MIN_VAEGT);
-    kalorier = 0;
+    sundhed = new SundhedsStatus(vaegt);
   }
 
-  // Vægten kan kun ændres gennem denne metode.
+  // Pet videresender ændringer til sin egen sundhedsstatus.
   void aendreVaegt(float aendring) {
-    vaegt += aendring;
-    vaegt = constrain(vaegt, 4, 40);
+    sundhed.aendreVaegt(aendring);
+  }
+
+  void aendreKalorier(int aendring) {
+    sundhed.aendreKalorier(aendring);
   }
 
   float getVaegt() {
-    return vaegt;
+    return sundhed.getVaegt();
+  }
+
+  int getKalorier() {
+    return sundhed.getKalorier();
   }
 
   // Metode til at give mad
   void givMad() {
     aendreVaegt(1);
-    kalorier = kalorier + 500;
+    aendreKalorier(500);
   }
 
 
@@ -40,7 +42,7 @@ class Pet {
   void display() {
 
     // Maven bliver større med vægten
-    float mave = 120 + vaegt * 15;
+    float mave = 120 + getVaegt() * 15;
 
     // Gemmer det nuværende kordinatsystem
     pushMatrix();

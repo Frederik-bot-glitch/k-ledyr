@@ -38,7 +38,7 @@ void draw() {
   textSize(20);
   text("Navn: " + pet.navn, 50, 100);
   text("Vægt: " + pet.getVaegt() + " kg", 50, 130);
-  text("Kalorier: " + pet.kalorier, 50, 160);
+  text("Kalorier: " + pet.getKalorier(), 50, 160);
 
 
   fill(100, 200, 100);
@@ -76,13 +76,15 @@ void mousePressed() {
     mouseY > 450 && mouseY < 500) {
 
     madMenu = !madMenu;
+    traenMenu = false;
   }
 
   // Træn
   if (mouseX > 230 && mouseX < 380 &&
     mouseY > 450 && mouseY < 500) {
 
-  traenMenu = !traenMenu;
+    traenMenu = !traenMenu;
+    madMenu = false;
   }
 
   // Burger
@@ -90,8 +92,8 @@ void mousePressed() {
     mouseX > 250 && mouseX < 430 &&
     mouseY > 400 && mouseY < 460) {
 
-    pet.vaegt = pet.vaegt + 2;
-    pet.kalorier = pet.kalorier + 700;
+    pet.aendreVaegt(2);
+    pet.aendreKalorier(700);
     madMenu = false;
   }
 
@@ -101,8 +103,8 @@ void mousePressed() {
     mouseX > 450 && mouseX < 630 &&
     mouseY > 400 && mouseY < 460) {
 
-    pet.vaegt = pet.vaegt + 0.2;
-    pet.kalorier = pet.kalorier + 80;
+    pet.aendreVaegt(0.2);
+    pet.aendreKalorier(80);
     madMenu = false;
   }
 
@@ -112,8 +114,8 @@ void mousePressed() {
     mouseX > 250 && mouseX < 430 &&
     mouseY > 480 && mouseY < 540) {
 
-    pet.vaegt = pet.vaegt + 1;
-    pet.kalorier = pet.kalorier + 500;
+    pet.aendreVaegt(1);
+    pet.aendreKalorier(500);
     madMenu = false;
   }
   
@@ -122,8 +124,8 @@ void mousePressed() {
       mouseX > 400 && mouseX < 580 &&
       mouseY > 400 && mouseY < 460) {
 
-    pet.kalorier = max(0, pet.kalorier - 300);
-    pet.vaegt = max(1, pet.vaegt - 0.5);
+    pet.aendreKalorier(-300);
+    pet.aendreVaegt(-0.5);
 
     traenMenu = false;
   }
@@ -134,8 +136,8 @@ void mousePressed() {
       mouseX > 400 && mouseX < 580 &&
       mouseY > 470 && mouseY < 530) {
 
-    pet.kalorier = max(0, pet.kalorier - 400);
-    pet.vaegt = max(1, pet.vaegt - 0.7);
+    pet.aendreKalorier(-400);
+    pet.aendreVaegt(-0.7);
 
     traenMenu = false;
   }
@@ -146,8 +148,8 @@ void mousePressed() {
       mouseX > 400 && mouseX < 580 &&
       mouseY > 540 && mouseY < 600) {
 
-    pet.kalorier = max(0, pet.kalorier - 500);
-    pet.vaegt = max(1, pet.vaegt - 1);
+    pet.aendreKalorier(-500);
+    pet.aendreVaegt(-1);
 
     traenMenu = false;
   }
