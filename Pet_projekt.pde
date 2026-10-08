@@ -56,7 +56,7 @@ void draw() {
   // Viser status
   textSize(20);
   text("Navn: " + pet.navn, 50, 100);
-  text("Vægt: " + pet.getVaegt() + " kg", 50, 130);
+  text("Vægt: " + nf(pet.getVaegt(), 1, 2) + " kg", 50, 130);
   text("Kalorier: " + pet.getKalorier(), 50, 160);
 
 
