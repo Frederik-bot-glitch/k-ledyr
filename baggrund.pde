@@ -6,9 +6,9 @@ void tegnBaggrund() {
   // Sidevægge og bagvæg.
   fill(230, 215, 190);
   rect(130, 70, 540, 330);
-  fill(190, 40, 40);
+  fill(240, 90, 90);
   quad(0, 0, 130, 70, 130, 400, 0, 600);
-  fill(160, 30, 35);
+  fill(240, 90, 90);
   quad(670, 70, 800, 0, 800, 600, 670, 400);
 
   // Gulv med fliser.

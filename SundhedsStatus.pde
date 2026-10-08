@@ -15,7 +15,7 @@ class SundhedsStatus {
 
   void aendreKalorier(int aendring) {
     kalorier = max(0, kalorier + aendring);
-    // Spilregel: 1000 kalorier giver 1 kg. Træning bruger negative kalorier.
+    // 1000 kalorier giver 1 kg. Træning bruger negative kalorier.
     aendreVaegt(aendring / 1000.0);
   }
 

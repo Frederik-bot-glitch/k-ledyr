@@ -39,6 +39,10 @@ class Pet {
   }
 
   void display() {
+    // Fast kontur, uanset hvilke menuer der blev tegnet sidst.
+    pushStyle();
+    stroke(100, 70, 40);
+    strokeWeight(4);
 
     // Maven bliver større med vægten
     float mave = 120 + getVaegt() * 15;
@@ -104,5 +108,6 @@ class Pet {
 
     // Går tilbage til det gamle kordinatsystem
     popMatrix();
+    popStyle();
   }
 }

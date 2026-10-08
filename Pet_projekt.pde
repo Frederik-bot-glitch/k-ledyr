@@ -61,6 +61,8 @@ void draw() {
 
 
   fill(100, 200, 100);
+  stroke(100, 70, 40);
+  strokeWeight(4);
   // Mad knap
   rect(50, 450, 150, 50);
 
