@@ -2,6 +2,7 @@ Pet pet;
 Mad burger;
 Mad aeble;
 Mad pizza;
+Mad heleMaccen;
 
 Traening loeb;
 Traening cykel;
@@ -9,6 +10,7 @@ Traening fitness;
 
 boolean traenMenu = false;
 boolean madMenu = false;
+boolean eksploderet = false;
 
 boolean madFlyver = false;
 boolean madPartikler = false;
@@ -25,6 +27,7 @@ void setup() {
   burger = new Mad("Burger", 700);
   aeble = new Mad("Æble", 80);
   pizza = new Mad("Pizza", 500);
+  heleMaccen = new Mad("Hele Mcdonald's", 10000);
 
   loeb = new Traening("Løb", 300);
   cykel = new Traening("Cykel", 400);
@@ -57,7 +60,10 @@ void draw() {
   text("Mit digitale kæledyr", 250, 50);
 
   // Viser kæledyret
-  pet.display();
+  tjekEksplosion();
+  if (!eksploderet) {
+    pet.display();
+  }
 
   //Madskål
   pushStyle();
@@ -120,14 +126,21 @@ void draw() {
     burger.display(250, 400);
     aeble.display(450, 400);
     pizza.display(250, 480);
+    heleMaccen.display(450, 480);
   }
 
   fill(0);
   text("Giv mad", 90, 482);
   text("Træn", 280, 482);
+  tegnEksplosion();
+  if (eksploderet) {
+    fill(140, 0, 0);
+    text("Kæledyret eksploderede! Tryk R for at starte igen.", 150, 190);
+  }
 }
 
 void mousePressed() {
+  if (eksploderet || madFlyver) return;
 
   // Giv mad
   if (mouseX > 50 && mouseX < 200 &&
@@ -174,6 +187,15 @@ void mousePressed() {
     madMenu = false;
   }
   
+  // Hele Mcdonald's giver 20 kg ekstra.
+  if (madMenu &&
+      mouseX > 450 && mouseX < 630 &&
+      mouseY > 480 && mouseY < 540) {
+
+    startMadAnimation(20, heleMaccen.kalorier);
+    madMenu = false;
+  }
+
    // LØB
   if (traenMenu &&
       mouseX > 400 && mouseX < 580 &&
@@ -228,7 +250,8 @@ void tegnMadAnimation() {
       madFlyver = false;
       pet.aendreVaegt(ventendeVaegt);
       pet.aendreKalorier(ventendeKalorier);
-      startPartikler();
+      tjekEksplosion();
+      if (!eksploderet) startPartikler();
     }
   }
 
@@ -259,5 +282,24 @@ void startPartikler() {
 
   for (int i = 0; i < PARTIKEL_ANTAL; i++) {
     partikler[i] = new Partikel(400, 268);
+  }
+}
+
+void tjekEksplosion() {
+  if (!eksploderet && pet.getVaegt() > 20) {
+    eksploderet = true;
+    madFlyver = false;
+    madPartikler = false;
+    madMenu = false;
+    traenMenu = false;
+    startEksplosion();
+  }
+}
+
+void keyPressed() {
+  if (eksploderet && (key == 'r' || key == 'R')) {
+    pet = new Pet("Mads", 5);
+    eksploderet = false;
+    eksplosion = new Partikel[180];
   }
 }
