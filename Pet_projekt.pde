@@ -51,18 +51,16 @@ void draw() {
   // Viser kæledyret
   pet.display();
 
-  // Blå, trapezformet madskål nederst til højre
+  //Madskål
   pushStyle();
   stroke(20, 65, 130);
   strokeWeight(2);
   fill(55, 130, 220);
   quad(665, 535, 755, 535, 775, 580, 645, 580);
 
-  // Skålens åbning
   fill(25, 80, 160);
   ellipse(710, 535, 95, 30);
 
-  // Små runde foderkugler
   noStroke();
   fill(100, 60, 25);
   ellipse(672, 532, 9, 9);
