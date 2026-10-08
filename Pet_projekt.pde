@@ -7,6 +7,7 @@ Mad heleMaccen;
 Traening loeb;
 Traening cykel;
 Traening fitness;
+Traening marathon;
 
 boolean traenMenu = false;
 boolean madMenu = false;
@@ -17,7 +18,6 @@ boolean madPartikler = false;
 float madTid = 0;
 final int PARTIKEL_ANTAL = 30;
 Partikel[] partikler = new Partikel[PARTIKEL_ANTAL];
-float ventendeVaegt;
 int ventendeKalorier;
 void setup() {
   size(800, 600);
@@ -27,32 +27,16 @@ void setup() {
   burger = new Mad("Burger", 700);
   aeble = new Mad("Æble", 80);
   pizza = new Mad("Pizza", 500);
-  heleMaccen = new Mad("Hele Mcdonald's", 10000);
+  heleMaccen = new Mad("Hele Mcdonald's", 20000);
 
   loeb = new Traening("Løb", 300);
   cykel = new Traening("Cykel", 400);
   fitness = new Traening("Fitness", 500);
+  marathon = new Traening("Marathon", 2500);
 }
 
 void draw() {
-  pushStyle();
-  background(210, 220, 230);
-  noStroke();
-
-  // Bagvæg
-  fill(235, 225, 205);
-  rect(130, 70, 540, 330);
-
-  // Venstre og højre væg
-  fill(205, 190, 170);
-  quad(0, 0, 130, 70, 130, 400, 0, 600);
-  fill(190, 175, 155);
-  quad(670, 70, 800, 0, 800, 600, 670, 400);
-
-  // Gulv
-  fill(170, 130, 90);
-  quad(130, 400, 670, 400, 800, 600, 0, 600);
-  popStyle();
+  tegnBaggrund();
 
   // Titel
   textSize(30);
@@ -65,36 +49,7 @@ void draw() {
     pet.display();
   }
 
-  //Madskål
-  pushStyle();
-  stroke(20, 65, 130);
-  strokeWeight(2);
-  fill(55, 130, 220);
-  quad(665, 535, 755, 535, 775, 580, 645, 580);
-
-  fill(25, 80, 160);
-  ellipse(710, 535, 95, 30);
-
-  noStroke();
-  fill(100, 60, 25);
-  ellipse(672, 532, 9, 9);
-  ellipse(682, 526, 9, 9);
-  ellipse(688, 538, 9, 9);
-  ellipse(695, 531, 9, 9);
-  ellipse(702, 524, 9, 9);
-  ellipse(706, 539, 9, 9);
-  ellipse(713, 531, 9, 9);
-  ellipse(720, 524, 9, 9);
-  ellipse(724, 539, 9, 9);
-  ellipse(731, 531, 9, 9);
-  ellipse(738, 525, 9, 9);
-  ellipse(744, 538, 9, 9);
-  ellipse(749, 530, 9, 9);
-  ellipse(680, 539, 9, 9);
-  ellipse(691, 523, 9, 9);
-  ellipse(716, 523, 9, 9);
-  ellipse(735, 539, 9, 9);
-  popStyle();
+  tegnMadskaal();
 
   tegnMadAnimation();
 
@@ -116,8 +71,9 @@ void draw() {
   if (traenMenu) {
 
     loeb.display(400, 400);
-    cykel.display(400, 470);
-    fitness.display(400, 540);
+    cykel.display(600, 400);
+    fitness.display(400, 480);
+    marathon.display(600, 480);
   }
 
   // Hvis madmenuen er åben
@@ -163,7 +119,7 @@ void mousePressed() {
     mouseX > 250 && mouseX < 430 &&
     mouseY > 400 && mouseY < 460) {
 
-    startMadAnimation(2, 700);
+    startMadAnimation(burger.kalorier);
     madMenu = false;
   }
 
@@ -173,7 +129,7 @@ void mousePressed() {
     mouseX > 450 && mouseX < 630 &&
     mouseY > 400 && mouseY < 460) {
 
-    startMadAnimation(0.2, 80);
+    startMadAnimation(aeble.kalorier);
     madMenu = false;
   }
 
@@ -183,7 +139,7 @@ void mousePressed() {
     mouseX > 250 && mouseX < 430 &&
     mouseY > 480 && mouseY < 540) {
 
-    startMadAnimation(1, 500);
+    startMadAnimation(pizza.kalorier);
     madMenu = false;
   }
   
@@ -192,7 +148,7 @@ void mousePressed() {
       mouseX > 450 && mouseX < 630 &&
       mouseY > 480 && mouseY < 540) {
 
-    startMadAnimation(20, heleMaccen.kalorier);
+    startMadAnimation(heleMaccen.kalorier);
     madMenu = false;
   }
 
@@ -201,8 +157,7 @@ void mousePressed() {
       mouseX > 400 && mouseX < 580 &&
       mouseY > 400 && mouseY < 460) {
 
-    pet.aendreKalorier(-300);
-    pet.aendreVaegt(-0.5);
+    pet.aendreKalorier(-loeb.kalorier);
 
     traenMenu = false;
   }
@@ -210,23 +165,30 @@ void mousePressed() {
 
   // CYKEL
   if (traenMenu &&
-      mouseX > 400 && mouseX < 580 &&
-      mouseY > 470 && mouseY < 530) {
+      mouseX > 600 && mouseX < 780 &&
+      mouseY > 400 && mouseY < 460) {
 
-    pet.aendreKalorier(-400);
-    pet.aendreVaegt(-0.7);
+    pet.aendreKalorier(-cykel.kalorier);
 
     traenMenu = false;
   }
 
 
+  // MARATHON
+  if (traenMenu &&
+      mouseX > 600 && mouseX < 780 &&
+      mouseY > 480 && mouseY < 540) {
+
+    pet.aendreKalorier(-marathon.kalorier);
+    traenMenu = false;
+  }
+
   // FITNESS
   if (traenMenu &&
       mouseX > 400 && mouseX < 580 &&
-      mouseY > 540 && mouseY < 600) {
+      mouseY > 480 && mouseY < 540) {
 
-    pet.aendreKalorier(-500);
-    pet.aendreVaegt(-1);
+    pet.aendreKalorier(-fitness.kalorier);
 
     traenMenu = false;
   }
@@ -248,7 +210,6 @@ void tegnMadAnimation() {
 
     if (madTid >= 1) {
       madFlyver = false;
-      pet.aendreVaegt(ventendeVaegt);
       pet.aendreKalorier(ventendeKalorier);
       tjekEksplosion();
       if (!eksploderet) startPartikler();
@@ -269,11 +230,10 @@ void tegnMadAnimation() {
   }
 }
 
-void startMadAnimation(float vaegt, int kalorier) {
+void startMadAnimation(int kalorier) {
   madFlyver = true;
   madPartikler = false;
   madTid = 0;
-  ventendeVaegt = vaegt;
   ventendeKalorier = kalorier;
 }
 
@@ -300,6 +260,6 @@ void keyPressed() {
   if (eksploderet && (key == 'r' || key == 'R')) {
     pet = new Pet("Mads", 5);
     eksploderet = false;
-    eksplosion = new Partikel[180];
+    eksplosion = new Partikel[380];
   }
 }

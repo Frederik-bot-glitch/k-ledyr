@@ -29,14 +29,13 @@ class Pet {
 
   // Metode til at give mad
   void givMad() {
-    aendreVaegt(1);
     aendreKalorier(500);
   }
 
 
   // Metode til at træne
   void traen() {
-    aendreVaegt(-1);
+    aendreKalorier(-1000);
   }
 
   void display() {

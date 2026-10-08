@@ -1,5 +1,5 @@
 // Samme partikelklasse bruges til mad, ild og blod.
-Partikel[] eksplosion = new Partikel[180];
+Partikel[] eksplosion = new Partikel[380];
 
 void startEksplosion() {
   for (int i = 0; i < eksplosion.length; i++) {
@@ -9,7 +9,7 @@ void startEksplosion() {
     eksplosion[i].tyngdekraft = 0.05;
     eksplosion[i].fade = 0.012;
 
-    if (i < 100) {
+    if (i < 300) {
       eksplosion[i].farve = color(255, random(100, 200), 0);
     } else {
       eksplosion[i].farve = color(200, 0, 0);
