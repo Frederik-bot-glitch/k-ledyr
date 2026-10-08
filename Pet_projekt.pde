@@ -9,6 +9,14 @@ Traening fitness;
 
 boolean traenMenu = false;
 boolean madMenu = false;
+
+boolean madFlyver = false;
+boolean madPartikler = false;
+float madTid = 0;
+final int PARTIKEL_ANTAL = 30;
+Partikel[] partikler = new Partikel[PARTIKEL_ANTAL];
+float ventendeVaegt;
+int ventendeKalorier;
 void setup() {
   size(800, 600);
 
@@ -82,6 +90,8 @@ void draw() {
   ellipse(735, 539, 9, 9);
   popStyle();
 
+  tegnMadAnimation();
+
   // Viser status
   textSize(20);
   text("Navn: " + pet.navn, 50, 100);
@@ -140,8 +150,7 @@ void mousePressed() {
     mouseX > 250 && mouseX < 430 &&
     mouseY > 400 && mouseY < 460) {
 
-    pet.aendreVaegt(2);
-    pet.aendreKalorier(700);
+    startMadAnimation(2, 700);
     madMenu = false;
   }
 
@@ -151,8 +160,7 @@ void mousePressed() {
     mouseX > 450 && mouseX < 630 &&
     mouseY > 400 && mouseY < 460) {
 
-    pet.aendreVaegt(0.2);
-    pet.aendreKalorier(80);
+    startMadAnimation(0.2, 80);
     madMenu = false;
   }
 
@@ -162,8 +170,7 @@ void mousePressed() {
     mouseX > 250 && mouseX < 430 &&
     mouseY > 480 && mouseY < 540) {
 
-    pet.aendreVaegt(1);
-    pet.aendreKalorier(500);
+    startMadAnimation(1, 500);
     madMenu = false;
   }
   
@@ -200,5 +207,57 @@ void mousePressed() {
     pet.aendreVaegt(-1);
 
     traenMenu = false;
+  }
+}
+
+// En foderkugle flyver fra skålen til hundens mund.
+void tegnMadAnimation() {
+  if (madFlyver) {
+    madTid += 0.035;
+
+    float kugleX = lerp(710, 400, madTid);
+    float kugleY = lerp(535, 268, madTid) - sin(PI * madTid) * 100;
+
+    pushStyle();
+    noStroke();
+    fill(100, 60, 25);
+    ellipse(kugleX, kugleY, 13, 13);
+    popStyle();
+
+    if (madTid >= 1) {
+      madFlyver = false;
+      pet.aendreVaegt(ventendeVaegt);
+      pet.aendreKalorier(ventendeKalorier);
+      startPartikler();
+    }
+  }
+
+  if (madPartikler) {
+    boolean alleErFaerdige = true;
+    for (int i = 0; i < PARTIKEL_ANTAL; i++) {
+      partikler[i].opdater();
+      partikler[i].display();
+      if (!partikler[i].erFaerdig()) {
+        alleErFaerdige = false;
+      }
+    }
+
+    madPartikler = !alleErFaerdige;
+  }
+}
+
+void startMadAnimation(float vaegt, int kalorier) {
+  madFlyver = true;
+  madPartikler = false;
+  madTid = 0;
+  ventendeVaegt = vaegt;
+  ventendeKalorier = kalorier;
+}
+
+void startPartikler() {
+  madPartikler = true;
+
+  for (int i = 0; i < PARTIKEL_ANTAL; i++) {
+    partikler[i] = new Partikel(400, 268);
   }
 }
