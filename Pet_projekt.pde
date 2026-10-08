@@ -51,6 +51,39 @@ void draw() {
   // Viser kæledyret
   pet.display();
 
+  // Blå, trapezformet madskål nederst til højre
+  pushStyle();
+  stroke(20, 65, 130);
+  strokeWeight(2);
+  fill(55, 130, 220);
+  quad(665, 535, 755, 535, 775, 580, 645, 580);
+
+  // Skålens åbning
+  fill(25, 80, 160);
+  ellipse(710, 535, 95, 30);
+
+  // Små runde foderkugler
+  noStroke();
+  fill(100, 60, 25);
+  ellipse(672, 532, 9, 9);
+  ellipse(682, 526, 9, 9);
+  ellipse(688, 538, 9, 9);
+  ellipse(695, 531, 9, 9);
+  ellipse(702, 524, 9, 9);
+  ellipse(706, 539, 9, 9);
+  ellipse(713, 531, 9, 9);
+  ellipse(720, 524, 9, 9);
+  ellipse(724, 539, 9, 9);
+  ellipse(731, 531, 9, 9);
+  ellipse(738, 525, 9, 9);
+  ellipse(744, 538, 9, 9);
+  ellipse(749, 530, 9, 9);
+  ellipse(680, 539, 9, 9);
+  ellipse(691, 523, 9, 9);
+  ellipse(716, 523, 9, 9);
+  ellipse(735, 539, 9, 9);
+  popStyle();
+
   // Viser status
   textSize(20);
   text("Navn: " + pet.navn, 50, 100);
