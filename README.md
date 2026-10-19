@@ -64,7 +64,7 @@ Brugeren kan vælge mellem forskellige madvarer og træningsformer. Mad øger ka
 
 ## Arbejdsfordeling og brug af AI
 
-Projektet er udviklet af **Aquaxyy** og **Frederik-bot-glitch**. Arbejdet er løbende delt gennem Git og GitHub:
+Projektet er udviklet af Philip og Frederik. Arbejdet er løbende delt gennem Git og GitHub:
 
 - Aquaxyy har blandt andet arbejdet med mad- og træningsfunktioner, baggrund, eksplosion og visuelle rettelser.
 - Frederik-bot-glitch har blandt andet arbejdet med indkapsling, klassestruktur, madskål og spise-animation.
